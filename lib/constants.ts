@@ -1,3 +1,5 @@
+import z from "zod/v3";
+
 export const NAV_ITEMS = [
   { href: "/", label: "Dashboard" },
   { href: "/search", label: "Search" },
@@ -361,3 +363,76 @@ export const WIDGETS = [
     wrapperClassname: "xl:col-span-2",
   },
 ];
+
+export const signUPFormSchema = z.object({
+  fullName: z
+    .string()
+    .trim()
+    .min(2, "Full Name must be at least 2 characters."),
+
+  email: z.string().trim().email("Invalid email address."),
+
+  password: z
+    .string()
+    .min(8, "Password must be at least 8 characters.")
+    .regex(/[A-Z]/, "Must contain at least one uppercase letter.")
+    .regex(/[0-9]/, "Must contain at least one number."),
+
+  investmentGoals: z.string({
+    required_error: "Investment Goals is required!",
+  }),
+
+  riskTolerance: z.string({
+    required_error: "Risk Tolerance is required!",
+  }),
+
+  preferredIndustry: z.string({
+    required_error: "Preferred Industry is required!",
+  }),
+
+  country: z.string({
+    required_error: "Country is required!",
+  }),
+});
+
+export const signUpSelectFields = [
+  {
+    name: "investmentGoals",
+    label: "Investment Goals",
+    placeholder: "Select your investment goal",
+    options: INVESTMENT_GOALS,
+  },
+  {
+    name: "riskTolerance",
+    label: "Risk Tolerance",
+    placeholder: "Select your risk level",
+    options: RISK_TOLERANCE_OPTIONS,
+  },
+  {
+    name: "preferredIndustry",
+    label: "Preferred Industry",
+    placeholder: "Select your preferred industry",
+    options: PREFERRED_INDUSTRIES,
+  },
+] as const;
+
+export const signUpInputFields = [
+  {
+    name: "fullName",
+    label: "Full Name",
+    placeholder: "John Doe",
+    type: "text",
+  },
+  {
+    name: "email",
+    label: "Email",
+    placeholder: "contact@jsmastery.com",
+    type: "email",
+  },
+  {
+    name: "password",
+    label: "Password",
+    placeholder: "Enter a strong password",
+    type: "password",
+  },
+] as const;
