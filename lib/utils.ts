@@ -1,139 +1,339 @@
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+export const NAV_ITEMS = [
+    { href: '/', label: 'Dashboard' },
+    { href: '/search', label: 'Search' },
+    // { href: '/watchlist', label: 'Watchlist' },
+];
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+// Sign-up form select options
+export const INVESTMENT_GOALS = [
+    { value: 'Growth', label: 'Growth' },
+    { value: 'Income', label: 'Income' },
+    { value: 'Balanced', label: 'Balanced' },
+    { value: 'Conservative', label: 'Conservative' },
+];
 
-export const formatTimeAgo = (timestamp: number) => {
-  const now = Date.now();
-  const diffInMs = now - timestamp * 1000; // Convert to milliseconds
-  const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
-  const diffInMinutes = Math.floor(diffInMs / (1000 * 60));
+export const RISK_TOLERANCE_OPTIONS = [
+    { value: 'Low', label: 'Low' },
+    { value: 'Medium', label: 'Medium' },
+    { value: 'High', label: 'High' },
+];
 
-  if (diffInHours > 24) {
-    const days = Math.floor(diffInHours / 24);
-    return `${days} day${days > 1 ? 's' : ''} ago`;
-  } else if (diffInHours >= 1) {
-    return `${diffInHours} hour${diffInHours > 1 ? 's' : ''} ago`;
-  } else {
-    return `${diffInMinutes} minute${diffInMinutes > 1 ? 's' : ''} ago`;
-  }
+export const PREFERRED_INDUSTRIES = [
+    { value: 'Technology', label: 'Technology' },
+    { value: 'Healthcare', label: 'Healthcare' },
+    { value: 'Finance', label: 'Finance' },
+    { value: 'Energy', label: 'Energy' },
+    { value: 'Consumer Goods', label: 'Consumer Goods' },
+];
+
+export const ALERT_TYPE_OPTIONS = [
+    { value: 'upper', label: 'Upper' },
+    { value: 'lower', label: 'Lower' },
+];
+
+export const CONDITION_OPTIONS = [
+    { value: 'greater', label: 'Greater than (>)' },
+    { value: 'less', label: 'Less than (<)' },
+];
+
+// TradingView Charts
+export const MARKET_OVERVIEW_WIDGET_CONFIG = {
+    colorTheme: 'dark', // dark mode
+    dateRange: '12M', // last 12 months
+    locale: 'en', // language
+    largeChartUrl: '', // link to a large chart if needed
+    isTransparent: true, // makes background transparent
+    showFloatingTooltip: true, // show tooltip on hover
+    plotLineColorGrowing: '#0FEDBE', // line color when price goes up
+    plotLineColorFalling: '#0FEDBE', // line color when price falls
+    gridLineColor: 'rgba(240, 243, 250, 0)', // grid line color
+    scaleFontColor: '#DBDBDB', // font color for scale
+    belowLineFillColorGrowing: 'rgba(41, 98, 255, 0.12)', // fill under line when growing
+    belowLineFillColorFalling: 'rgba(41, 98, 255, 0.12)', // fill under line when falling
+    belowLineFillColorGrowingBottom: 'rgba(41, 98, 255, 0)',
+    belowLineFillColorFallingBottom: 'rgba(41, 98, 255, 0)',
+    symbolActiveColor: 'rgba(15, 237, 190, 0.05)', // highlight color for active symbol
+    tabs: [
+        {
+            title: 'Financial',
+            symbols: [
+                { s: 'NYSE:JPM', d: 'JPMorgan Chase' },
+                { s: 'NYSE:WFC', d: 'Wells Fargo Co New' },
+                { s: 'NYSE:BAC', d: 'Bank Amer Corp' },
+                { s: 'NYSE:HSBC', d: 'Hsbc Hldgs Plc' },
+                { s: 'NYSE:C', d: 'Citigroup Inc' },
+                { s: 'NYSE:MA', d: 'Mastercard Incorporated' },
+            ],
+        },
+        {
+            title: 'Technology',
+            symbols: [
+                { s: 'NASDAQ:AAPL', d: 'Apple' },
+                { s: 'NASDAQ:GOOGL', d: 'Alphabet' },
+                { s: 'NASDAQ:MSFT', d: 'Microsoft' },
+                { s: 'NASDAQ:FB', d: 'Meta Platforms' },
+                { s: 'NYSE:ORCL', d: 'Oracle Corp' },
+                { s: 'NASDAQ:INTC', d: 'Intel Corp' },
+            ],
+        },
+        {
+            title: 'Services',
+            symbols: [
+                { s: 'NASDAQ:AMZN', d: 'Amazon' },
+                { s: 'NYSE:BABA', d: 'Alibaba Group Hldg Ltd' },
+                { s: 'NYSE:T', d: 'At&t Inc' },
+                { s: 'NYSE:WMT', d: 'Walmart' },
+                { s: 'NYSE:V', d: 'Visa' },
+            ],
+        },
+    ],
+    support_host: 'https://www.tradingview.com', // TradingView host
+    backgroundColor: '#141414', // background color
+    width: '100%', // full width
+    height: 600, // height in px
+    showSymbolLogo: true, // show logo next to symbols
+    showChart: true, // display mini chart
 };
 
-export function delay(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-// Formatted string like "$3.10T", "$900.00B", "$25.00M" or "$999,999.99"
-export function formatMarketCapValue(marketCapUsd: number): string {
-  if (!Number.isFinite(marketCapUsd) || marketCapUsd <= 0) return 'N/A';
-
-  if (marketCapUsd >= 1e12) return `$${(marketCapUsd / 1e12).toFixed(2)}T`; // Trillions
-  if (marketCapUsd >= 1e9) return `$${(marketCapUsd / 1e9).toFixed(2)}B`; // Billions
-  if (marketCapUsd >= 1e6) return `$${(marketCapUsd / 1e6).toFixed(2)}M`; // Millions
-  return `$${marketCapUsd.toFixed(2)}`; // Below one million, show full USD amount
-}
-
-export const getDateRange = (days: number) => {
-  const toDate = new Date();
-  const fromDate = new Date();
-  fromDate.setDate(toDate.getDate() - days);
-  return {
-    to: toDate.toISOString().split('T')[0],
-    from: fromDate.toISOString().split('T')[0],
-  };
+export const HEATMAP_WIDGET_CONFIG = {
+    dataSource: 'SPX500',
+    blockSize: 'market_cap_basic',
+    blockColor: 'change',
+    grouping: 'sector',
+    isTransparent: true,
+    locale: 'en',
+    symbolUrl: '',
+    colorTheme: 'dark',
+    exchanges: [],
+    hasTopBar: false,
+    isDataSetEnabled: false,
+    isZoomEnabled: true,
+    hasSymbolTooltip: true,
+    isMonoSize: false,
+    width: '100%',
+    height: '600',
 };
 
-// Get today's date range (from today to today)
-export const getTodayDateRange = () => {
-  const today = new Date();
-  const todayString = today.toISOString().split('T')[0];
-  return {
-    to: todayString,
-    from: todayString,
-  };
+export const TOP_STORIES_WIDGET_CONFIG = {
+    displayMode: 'regular',
+    feedMode: 'market',
+    colorTheme: 'dark',
+    isTransparent: true,
+    locale: 'en',
+    market: 'stock',
+    width: '100%',
+    height: '600',
 };
 
-// Calculate news per symbol based on watchlist size
-export const calculateNewsDistribution = (symbolsCount: number) => {
-  let itemsPerSymbol: number;
-  let targetNewsCount = 6;
-
-  if (symbolsCount < 3) {
-    itemsPerSymbol = 3; // Fewer symbols, more news each
-  } else if (symbolsCount === 3) {
-    itemsPerSymbol = 2; // Exactly 3 symbols, 2 news each = 6 total
-  } else {
-    itemsPerSymbol = 1; // Many symbols, 1 news each
-    targetNewsCount = 6; // Don't exceed 6 total
-  }
-
-  return { itemsPerSymbol, targetNewsCount };
+export const MARKET_DATA_WIDGET_CONFIG = {
+    title: 'Stocks',
+    width: '100%',
+    height: 600,
+    locale: 'en',
+    showSymbolLogo: true,
+    colorTheme: 'dark',
+    isTransparent: false,
+    backgroundColor: '#0F0F0F',
+    symbolsGroups: [
+        {
+            name: 'Financial',
+            symbols: [
+                { name: 'NYSE:JPM', displayName: 'JPMorgan Chase' },
+                { name: 'NYSE:WFC', displayName: 'Wells Fargo Co New' },
+                { name: 'NYSE:BAC', displayName: 'Bank Amer Corp' },
+                { name: 'NYSE:HSBC', displayName: 'Hsbc Hldgs Plc' },
+                { name: 'NYSE:C', displayName: 'Citigroup Inc' },
+                { name: 'NYSE:MA', displayName: 'Mastercard Incorporated' },
+            ],
+        },
+        {
+            name: 'Technology',
+            symbols: [
+                { name: 'NASDAQ:AAPL', displayName: 'Apple' },
+                { name: 'NASDAQ:GOOGL', displayName: 'Alphabet' },
+                { name: 'NASDAQ:MSFT', displayName: 'Microsoft' },
+                { name: 'NASDAQ:FB', displayName: 'Meta Platforms' },
+                { name: 'NYSE:ORCL', displayName: 'Oracle Corp' },
+                { name: 'NASDAQ:INTC', displayName: 'Intel Corp' },
+            ],
+        },
+        {
+            name: 'Services',
+            symbols: [
+                { name: 'NASDAQ:AMZN', displayName: 'Amazon' },
+                { name: 'NYSE:BABA', displayName: 'Alibaba Group Hldg Ltd' },
+                { name: 'NYSE:T', displayName: 'At&t Inc' },
+                { name: 'NYSE:WMT', displayName: 'Walmart' },
+                { name: 'NYSE:V', displayName: 'Visa' },
+            ],
+        },
+    ],
 };
 
-// Check for required article fields
-export const validateArticle = (article: RawNewsArticle) =>
-    article.headline && article.summary && article.url && article.datetime;
-
-// Get today's date string in YYYY-MM-DD format
-export const getTodayString = () => new Date().toISOString().split('T')[0];
-
-export const formatArticle = (
-    article: RawNewsArticle,
-    isCompanyNews: boolean,
-    symbol?: string,
-    index: number = 0
-) => ({
-  id: isCompanyNews ? Date.now() + Math.random() : article.id + index,
-  headline: article.headline!.trim(),
-  summary:
-      article.summary!.trim().substring(0, isCompanyNews ? 200 : 150) + '...',
-  source: article.source || (isCompanyNews ? 'Company News' : 'Market News'),
-  url: article.url!,
-  datetime: article.datetime!,
-  image: article.image || '',
-  category: isCompanyNews ? 'company' : article.category || 'general',
-  related: isCompanyNews ? symbol! : article.related || '',
+export const SYMBOL_INFO_WIDGET_CONFIG = (symbol: string) => ({
+    symbol: symbol.toUpperCase(),
+    colorTheme: 'dark',
+    isTransparent: true,
+    locale: 'en',
+    width: '100%',
+    height: 170,
 });
 
-export const formatChangePercent = (changePercent?: number) => {
-  if (!changePercent) return '';
-  const sign = changePercent > 0 ? '+' : '';
-  return `${sign}${changePercent.toFixed(2)}%`;
-};
-
-export const getChangeColorClass = (changePercent?: number) => {
-  if (!changePercent) return 'text-gray-400';
-  return changePercent > 0 ? 'text-green-500' : 'text-red-500';
-};
-
-export const formatPrice = (price: number) => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 2,
-  }).format(price);
-};
-
-export const formatDateToday = new Date().toLocaleDateString('en-US', {
-  weekday: 'long',
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  timeZone: 'UTC',
+export const CANDLE_CHART_WIDGET_CONFIG = (symbol: string) => ({
+    allow_symbol_change: false,
+    calendar: false,
+    details: true,
+    hide_side_toolbar: true,
+    hide_top_toolbar: false,
+    hide_legend: false,
+    hide_volume: false,
+    hotlist: false,
+    interval: 'D',
+    locale: 'en',
+    save_image: false,
+    style: 1,
+    symbol: symbol.toUpperCase(),
+    theme: 'dark',
+    timezone: 'Etc/UTC',
+    backgroundColor: '#141414',
+    gridColor: '#141414',
+    watchlist: [],
+    withdateranges: false,
+    compareSymbols: [],
+    studies: [],
+    width: '100%',
+    height: 600,
 });
 
-
-export const getAlertText = (alert: Alert) => {
-  const condition = alert.alertType === 'upper' ? '>' : '<';
-  return `Price ${condition} ${formatPrice(alert.threshold)}`;
-};
-
-export const getFormattedTodayDate = () => new Date().toLocaleDateString('en-US', {
-  weekday: 'long',
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  timeZone: 'UTC',
+export const BASELINE_WIDGET_CONFIG = (symbol: string) => ({
+    allow_symbol_change: false,
+    calendar: false,
+    details: false,
+    hide_side_toolbar: true,
+    hide_top_toolbar: false,
+    hide_legend: false,
+    hide_volume: false,
+    hotlist: false,
+    interval: 'D',
+    locale: 'en',
+    save_image: false,
+    style: 10,
+    symbol: symbol.toUpperCase(),
+    theme: 'dark',
+    timezone: 'Etc/UTC',
+    backgroundColor: '#141414',
+    gridColor: '#141414',
+    watchlist: [],
+    withdateranges: false,
+    compareSymbols: [],
+    studies: [],
+    width: '100%',
+    height: 600,
 });
+
+export const TECHNICAL_ANALYSIS_WIDGET_CONFIG = (symbol: string) => ({
+    symbol: symbol.toUpperCase(),
+    colorTheme: 'dark',
+    isTransparent: 'true',
+    locale: 'en',
+    width: '100%',
+    height: 400,
+    interval: '1h',
+    largeChartUrl: '',
+});
+
+export const COMPANY_PROFILE_WIDGET_CONFIG = (symbol: string) => ({
+    symbol: symbol.toUpperCase(),
+    colorTheme: 'dark',
+    isTransparent: 'true',
+    locale: 'en',
+    width: '100%',
+    height: 440,
+});
+
+export const COMPANY_FINANCIALS_WIDGET_CONFIG = (symbol: string) => ({
+    symbol: symbol.toUpperCase(),
+    colorTheme: 'dark',
+    isTransparent: 'true',
+    locale: 'en',
+    width: '100%',
+    height: 464,
+    displayMode: 'regular',
+    largeChartUrl: '',
+});
+
+export const POPULAR_STOCK_SYMBOLS = [
+    // Tech Giants (the big technology companies)
+    'AAPL',
+    'MSFT',
+    'GOOGL',
+    'AMZN',
+    'TSLA',
+    'META',
+    'NVDA',
+    'NFLX',
+    'ORCL',
+    'CRM',
+
+    // Growing Tech Companies
+    'ADBE',
+    'INTC',
+    'AMD',
+    'PYPL',
+    'UBER',
+    'ZOOM',
+    'SPOT',
+    'SQ',
+    'SHOP',
+    'ROKU',
+
+    // Newer Tech Companies
+    'SNOW',
+    'PLTR',
+    'COIN',
+    'RBLX',
+    'DDOG',
+    'CRWD',
+    'NET',
+    'OKTA',
+    'TWLO',
+    'ZM',
+
+    // Consumer & Delivery Apps
+    'DOCU',
+    'PTON',
+    'PINS',
+    'SNAP',
+    'LYFT',
+    'DASH',
+    'ABNB',
+    'RIVN',
+    'LCID',
+    'NIO',
+
+    // International Companies
+    'XPEV',
+    'LI',
+    'BABA',
+    'JD',
+    'PDD',
+    'TME',
+    'BILI',
+    'DIDI',
+    'GRAB',
+    'SE',
+];
+
+export const NO_MARKET_NEWS =
+    '<p class="mobile-text" style="margin:0 0 20px 0;font-size:16px;line-height:1.6;color:#4b5563;">No market news available today. Please check back tomorrow.</p>';
+
+export const WATCHLIST_TABLE_HEADER = [
+    'Company',
+    'Symbol',
+    'Price',
+    'Change',
+    'Market Cap',
+    'P/E Ratio',
+    'Alert',
+    'Action',
+];
