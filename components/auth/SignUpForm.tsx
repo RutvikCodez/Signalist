@@ -45,14 +45,14 @@ const SignUpForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5">
         {signUpInputFields.map(({ name, label, placeholder, type }) => (
           <FormField
             key={name}
             control={form.control}
             name={name}
             render={({ field }) => (
-              <FormItem className="space-y-2">
+              <FormItem className="flex flex-col gap-2">
                 <FormLabel className="form-label">{label}</FormLabel>
                 <FormControl>
                   <Input
@@ -82,7 +82,7 @@ const SignUpForm = () => {
             control={form.control}
             name={name}
             render={({ field }) => (
-              <FormItem className="space-y-2">
+              <FormItem className="flex flex-col gap-2">
                 <FormLabel className="form-label">{label}</FormLabel>
 
                 <Select
@@ -117,7 +117,7 @@ const SignUpForm = () => {
         <Button
           type="submit"
           disabled={form.formState.isSubmitting}
-          className="yellow-btn w-full mt-5"
+          className="yellow-btn w-full"
         >
           {form.formState.isSubmitting
             ? "Creating Account"

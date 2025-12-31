@@ -115,7 +115,7 @@ export const CountrySelectField = ({
   required = false,
 }: CountrySelectFieldProps) => {
   return (
-    <div className="space-y-2">
+    <div className="flex flex-col gap-2">
       <Label className="form-label">{label}</Label>
 
       <Controller

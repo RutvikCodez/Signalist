@@ -7,21 +7,23 @@ const AuthLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <main className="auth-layout">
-      <section className="auth-left-section scrollbar-hide-default">
-        <Link href={"/"} className="auth-logo">
-          <Image
-            src={"/assets/icons/logo.svg"}
-            alt="Signalist Logo"
-            width={140}
-            height={32}
-            className="h-8 w-auto cursor-pointer"
-          />
-        </Link>
-        <div className="pb-6 lg:pb-8 flex-1">{children}</div>
+    <main className="grid grid-cols-[45fr_55fr] max-lg:grid-cols-1 h-screen bg-gray-900 relative overflow-hidden">
+      <section className="auth-left-section scrollbar-hide-default w-full">
+        <div className="w-11/12 mx-auto flex flex-col gap-5">
+          <Link href={"/"} className="auth-logo">
+            <Image
+              src={"/assets/icons/logo.svg"}
+              alt="Signalist Logo"
+              width={140}
+              height={32}
+              className="h-8 w-auto cursor-pointer"
+            />
+          </Link>
+          <div className="pb-6 lg:pb-8 flex-1">{children}</div>
+        </div>
       </section>
-      <section className="auth-right-section">
-        <div className="z-10 relative lg:mt-4 lg:mb-16">
+      <section className="auth-right-section flex flex-col lg:gap-16">
+        <div className="z-10 relative lg:mt-4 mx-auto w-11/12">
           <blockquote className="auth-blockquote">
             Signalist turned my watchlist into a winning list. The alerts are
             spot-on, and I feel more confident making moves in the market
