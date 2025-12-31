@@ -25,6 +25,7 @@ import {
   signUpSelectFields,
 } from "@/lib/constants";
 import { CountrySelectField } from "../CountrySelectField";
+import FooterLink from "../FooterLink";
 
 const SignUpForm = () => {
   const form = useForm<z.infer<typeof signUPFormSchema>>({
@@ -123,6 +124,7 @@ const SignUpForm = () => {
             ? "Creating Account"
             : "Start Your Investing Journey"}
         </Button>
+        <FooterLink text="Already have an account?" linkText="Sign in" href="/sign-in" />
       </form>
     </Form>
   );

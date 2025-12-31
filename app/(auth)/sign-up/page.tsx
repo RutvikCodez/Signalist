@@ -2,7 +2,7 @@ import SignUpForm from "@/components/auth/SignUpForm";
 
 const SignUp = () => {
   return (
-    <div>
+    <div className="flex flex-col">
       <h1 className="form-title">Sign Up & Personalize</h1>
       <SignUpForm />
     </div>
