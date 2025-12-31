@@ -1,16 +1,8 @@
 "use client";
-
 import React, { memo } from "react";
 import useTradingViewWidget from "@/hooks/useTradingViewWidget";
 import { cn } from "@/lib/utils";
 
-interface TradingViewWidgetProps {
-  title?: string;
-  scriptUrl: string;
-  config: Record<string, unknown>;
-  height?: number;
-  className?: string;
-}
 
 const TradingViewWidget = ({
   title,
@@ -18,13 +10,15 @@ const TradingViewWidget = ({
   config,
   height = 600,
   className,
+  wrapperClassname,
+  ...props
 }: TradingViewWidgetProps) => {
   const containerRef = useTradingViewWidget(scriptUrl, config, height);
 
   return (
-    <div className="w-full">
+    <div className={cn("w-full flex flex-col gap-5", wrapperClassname)} {...props}>
       {title && (
-        <h3 className="font-semibold text-2xl text-gray-100 mb-5">{title}</h3>
+        <h3 className="font-semibold text-2xl text-gray-100">{title}</h3>
       )}
       <div
         className={cn("tradingview-widget-container", className)}
