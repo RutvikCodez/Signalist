@@ -6,7 +6,7 @@ import UserDropDown from "./UserDropDown";
 const Header = () => {
   return (
     <header className="sticky top-0 header">
-      <div className="container header-wrapper">
+      <div className="w-11/12 mx-auto header-wrapper">
         <Link href={"/"}>
           <Image
             src={"/assets/icons/logo.svg"}
@@ -16,7 +16,7 @@ const Header = () => {
             className="h-8 w-auto cursor-pointer"
           />
         </Link>
-        <nav className="hidden sm:block">
+        <nav className="max-sm:hidden">
           <NavItems />
         </nav>
         <UserDropDown />

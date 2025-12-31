@@ -8,7 +8,7 @@ const Layout = ({
   return (
     <main className="min-h-screen text-gray-400">
       <Header />
-      <div className="container py-10">{children}</div>
+      <main className="w-11/12 mx-auto py-10">{children}</main>
     </main>
   );
 };
