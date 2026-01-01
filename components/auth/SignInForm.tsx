@@ -14,8 +14,12 @@ import {
 import z from "zod/v3";
 import FooterLink from "../FooterLink";
 import { signInFormSchema, signInInputFields } from "@/lib/constants";
+import { signInWithEmail } from "@/lib/actions/auth.actions";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const SignInForm = () => {
+  const router = useRouter()
   const form = useForm<z.infer<typeof signInFormSchema>>({
     resolver: zodResolver(signInFormSchema),
     defaultValues: {
@@ -23,8 +27,17 @@ const SignInForm = () => {
       password: "",
     },
   });
-  const onSubmit = (data: z.infer<typeof signInFormSchema>) => {
-    console.log(data);
+  const onSubmit = async (data: z.infer<typeof signInFormSchema>) => {
+    try {
+      const result = await signInWithEmail(data);
+      if (result.success) router.push("/");
+    } catch (error) {
+      console.error(error);
+      toast.error("Sign in failed", {
+        description:
+          error instanceof Error ? error.message : "Failed to sign in!",
+      });
+    }
   };
   return (
     <Form {...form}>
