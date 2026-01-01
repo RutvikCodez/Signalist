@@ -9,7 +9,7 @@ const AuthLayout = ({
   return (
     <main className="grid grid-cols-[45fr_55fr] max-lg:grid-cols-1 h-screen bg-gray-900 relative overflow-hidden">
       <section className="auth-left-section scrollbar-hide-default w-full">
-        <div className="w-11/12 mx-auto flex flex-col gap-5">
+        <div className="w-11/12 mx-auto flex flex-col">
           <Link href={"/"} className="auth-logo">
             <Image
               src={"/assets/icons/logo.svg"}

@@ -26,8 +26,12 @@ import {
 } from "@/lib/constants";
 import { CountrySelectField } from "../CountrySelectField";
 import FooterLink from "../FooterLink";
+import { signUpWithEmail } from "@/lib/actions/auth.actions";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const SignUpForm = () => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof signUPFormSchema>>({
     resolver: zodResolver(signUPFormSchema),
     defaultValues: {
@@ -40,13 +44,25 @@ const SignUpForm = () => {
       country: "",
     },
   });
-  const onSubmit = (data: z.infer<typeof signUPFormSchema>) => {
-    console.log(data);
+  const onSubmit = async (data: z.infer<typeof signUPFormSchema>) => {
+    try {
+      const result = await signUpWithEmail(data);
+      if (result.success) router.push("/");
+    } catch (error) {
+      console.error(error);
+      toast.error("Sign up failed", {
+        description:
+          error instanceof Error ? error.message : "Failed to create an account.",
+      });
+    }
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-col gap-5"
+      >
         {signUpInputFields.map(({ name, label, placeholder, type }) => (
           <FormField
             key={name}
@@ -124,7 +140,11 @@ const SignUpForm = () => {
             ? "Creating Account"
             : "Start Your Investing Journey"}
         </Button>
-        <FooterLink text="Already have an account?" linkText="Sign in" href="/sign-in" />
+        <FooterLink
+          text="Already have an account?"
+          linkText="Sign in"
+          href="/sign-in"
+        />
       </form>
     </Form>
   );
