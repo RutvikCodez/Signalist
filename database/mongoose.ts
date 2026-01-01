@@ -26,5 +26,5 @@ export const connectToDatabase = async () => {
     throw error;
   }
   console.log("Connected to daatbase");
-  return cached.conn;
+  return cached.conn; 
 };

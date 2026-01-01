@@ -223,6 +223,11 @@ declare global {
     className?: string;
     wrapperClassname?: string;
   };
+  type sendNewsSummaryEmailProps = {
+    email: string;
+    date: string;
+    newsContent: string;
+  };
 }
 
 export {};
