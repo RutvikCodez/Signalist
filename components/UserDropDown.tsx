@@ -13,12 +13,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { LogOut } from "lucide-react";
 import NavItems from "./NavItems";
 
-const UserDropDown = () => {
+const UserDropDown = ({ email, id, name }: User) => {
   const router = useRouter();
   const handleSignOut = async () => {
     router.push("/sign-in");
   };
-  const user = { name: "John", email: "contact@jsmastery.com" };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -29,13 +28,11 @@ const UserDropDown = () => {
           <Avatar className="h-8 w-8">
             <AvatarImage src={"https://github.com/shadcn.png"} />
             <AvatarFallback className="bg-yellow-500 text-yellow-900 text-sm font-bold">
-              {user.name[0]}
+              {name[0]}
             </AvatarFallback>
           </Avatar>
           <div className="max-md:hidden flex flex-col items-start">
-            <span className="text-base font-medium text-gray-400">
-              {user.name}
-            </span>
+            <span className="text-base font-medium text-gray-400">{name}</span>
           </div>
         </Button>
       </DropdownMenuTrigger>
@@ -45,14 +42,14 @@ const UserDropDown = () => {
             <Avatar className="h-10 w-10">
               <AvatarImage src={"https://github.com/shadcn.png"} />
               <AvatarFallback className="bg-yellow-500 text-yellow-900 text-sm font-bold">
-                {user.name[0]}
+                {name[0]}
               </AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
               <span className="text-base font-medium text-gray-400">
-                {user.name}
+                {name}
               </span>
-              <span className="text-sm text-gray-500">{user.email}</span>
+              <span className="text-sm text-gray-500">{email}</span>
             </div>
           </div>
         </DropdownMenuLabel>
@@ -66,7 +63,7 @@ const UserDropDown = () => {
         </DropdownMenuItem>
         <DropdownMenuSeparator className="bg-gray-600 max-sm:hidden" />
         <nav className="sm:hidden">
-            <NavItems />
+          <NavItems />
         </nav>
       </DropdownMenuContent>
     </DropdownMenu>

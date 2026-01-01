@@ -3,7 +3,7 @@ import Link from "next/link";
 import NavItems from "./NavItems";
 import UserDropDown from "./UserDropDown";
 
-const Header = () => {
+const Header = ({email,id,name}: User) => {
   return (
     <header className="sticky top-0 header">
       <div className="w-11/12 mx-auto header-wrapper">
@@ -19,7 +19,7 @@ const Header = () => {
         <nav className="max-sm:hidden">
           <NavItems />
         </nav>
-        <UserDropDown />
+        <UserDropDown email={email} id={id} name={name} />
       </div>
     </header>
   );
