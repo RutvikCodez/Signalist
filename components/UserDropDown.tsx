@@ -14,7 +14,7 @@ import { LogOut } from "lucide-react";
 import NavItems from "./NavItems";
 import { signOut } from "@/lib/actions/auth.actions";
 
-const UserDropDown = ({ email, name }: User) => {
+const UserDropDown = ({ user, initialStocks }: {user: User, initialStocks: StockWithWatchlistStatus[]}) => {
   const router = useRouter();
   const handleSignOut = async () => {
     await signOut()
@@ -30,11 +30,11 @@ const UserDropDown = ({ email, name }: User) => {
           <Avatar className="h-8 w-8">
             <AvatarImage src={"https://github.com/shadcn.png"} />
             <AvatarFallback className="bg-yellow-500 text-yellow-900 text-sm font-bold">
-              {name[0]}
+              {user.name[0]}
             </AvatarFallback>
           </Avatar>
           <div className="max-md:hidden flex flex-col items-start">
-            <span className="text-base font-medium text-gray-400">{name}</span>
+            <span className="text-base font-medium text-gray-400">{user.name}</span>
           </div>
         </Button>
       </DropdownMenuTrigger>
@@ -44,14 +44,14 @@ const UserDropDown = ({ email, name }: User) => {
             <Avatar className="h-10 w-10">
               <AvatarImage src={"https://github.com/shadcn.png"} />
               <AvatarFallback className="bg-yellow-500 text-yellow-900 text-sm font-bold">
-                {name[0]}
+                {user.name[0]}
               </AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
               <span className="text-base font-medium text-gray-400">
-                {name}
+                {user.name}
               </span>
-              <span className="text-sm text-gray-500">{email}</span>
+              <span className="text-sm text-gray-500">{user.email}</span>
             </div>
           </div>
         </DropdownMenuLabel>
@@ -65,7 +65,7 @@ const UserDropDown = ({ email, name }: User) => {
         </DropdownMenuItem>
         <DropdownMenuSeparator className="bg-gray-600 max-sm:hidden" />
         <nav className="sm:hidden">
-          <NavItems />
+          <NavItems initialStocks={initialStocks} />
         </nav>
       </DropdownMenuContent>
     </DropdownMenu>

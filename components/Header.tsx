@@ -4,7 +4,7 @@ import NavItems from "./NavItems";
 import UserDropDown from "./UserDropDown";
 import { searchStocks } from "@/lib/actions/finnhub.actions";
 
-const Header = async ({ email, id, name }: User) => {
+const Header = async ({ user }: { user: User }) => {
   const initialStocks = await searchStocks();
   return (
     <header className="sticky top-0 header">
@@ -21,7 +21,7 @@ const Header = async ({ email, id, name }: User) => {
         <nav className="max-sm:hidden">
           <NavItems initialStocks={initialStocks} />
         </nav>
-        <UserDropDown email={email} id={id} name={name} />
+        <UserDropDown user={user} initialStocks={initialStocks} />
       </div>
     </header>
   );

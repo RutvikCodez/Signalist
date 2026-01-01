@@ -19,7 +19,7 @@ const Layout = async ({
   }
   return (
     <main className="min-h-screen text-gray-400">
-      <Header {...user} />
+      <Header user={user} />
       <main className="w-11/12 mx-auto py-10">{children}</main>
     </main>
   );
