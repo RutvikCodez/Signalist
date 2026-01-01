@@ -9,44 +9,64 @@ import {
 
 const Page = async ({ params }: StockDetailsPageProps) => {
   const { symbol } = await params;
-  const scriptUrl = `https://s3.tradingview.com/external-embedding/embed-widget-`;
+  const leftWidgets = [
+    {
+      script: "symbol-info.js",
+      config: SYMBOL_INFO_WIDGET_CONFIG(symbol),
+      height: 170,
+    },
+    {
+      script: "advanced-chart.js",
+      config: CANDLE_CHART_WIDGET_CONFIG(symbol),
+      height: 600,
+    },
+    {
+      script: "advanced-chart.js",
+      config: BASELINE_WIDGET_CONFIG(symbol),
+      height: 600,
+    },
+  ];
+
+  const rightWidgets = [
+    {
+      script: "technical-analysis.js",
+      config: TECHNICAL_ANALYSIS_WIDGET_CONFIG(symbol),
+      height: 400,
+    },
+    {
+      script: "financials.js",
+      config: COMPANY_FINANCIALS_WIDGET_CONFIG(symbol),
+      height: 464,
+    },
+  ];
+  const baseUrl =
+    "https://s3.tradingview.com/external-embedding/embed-widget-";
+
 
   return (
     <div className="flex min-h-screen p-4 md:p-6 lg:p-8">
       <section className="grid grid-cols-2 max-md:grid-cols-1 w-full gap-8">
         <div className="flex flex-col gap-6">
-          <TradingViewWidget
-            scriptUrl={`${scriptUrl}symbol-info.js`}
-            config={SYMBOL_INFO_WIDGET_CONFIG(symbol)}
-            height={170}
-            className="h-fit"
-          />
-          <TradingViewWidget
-            scriptUrl={`${scriptUrl}advanced-chart.js`}
-            config={CANDLE_CHART_WIDGET_CONFIG(symbol)}
-            className="custom-chart h-fit"
-            height={600}
-          />
-          <TradingViewWidget
-            scriptUrl={`${scriptUrl}advanced-chart.js`}
-            config={BASELINE_WIDGET_CONFIG(symbol)}
-            className="custom-chart h-fit"
-            height={600}
-          />
+          {leftWidgets.map((w, i) => (
+            <TradingViewWidget
+              key={i}
+              scriptUrl={`${baseUrl}${w.script}`}
+              config={w.config}
+              height={w.height}
+              className="h-fit custom-chart"
+            />
+          ))}
         </div>
         <div className="flex flex-col gap-6">
-          <TradingViewWidget
-            scriptUrl={`${scriptUrl}technical-analysis.js`}
-            config={TECHNICAL_ANALYSIS_WIDGET_CONFIG(symbol)}
-            height={400}
-            className="h-fit"
-          />
-          <TradingViewWidget
-            scriptUrl={`${scriptUrl}financials.js`}
-            config={COMPANY_FINANCIALS_WIDGET_CONFIG(symbol)}
-            height={464}
-            className="h-fit"
-          />
+          {rightWidgets.map((w, i) => (
+            <TradingViewWidget
+              key={i}
+              scriptUrl={`${baseUrl}${w.script}`}
+              config={w.config}
+              height={w.height}
+              className="h-fit custom-chart"
+            />
+          ))}
         </div>
       </section>
     </div>
