@@ -1,10 +1,11 @@
-"use client"
+"use client";
 import { NAV_ITEMS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import SearchCommand from "./SearchCommand";
 
-const NavItems = () => {
+const NavItems = ({initialStocks}: { initialStocks: StockWithWatchlistStatus[]}) => {
   const pathname = usePathname();
   const isActive = (path: string) => {
     if (path === "/") return pathname === "/";
@@ -12,18 +13,29 @@ const NavItems = () => {
   };
   return (
     <ul className="flex max-sm:flex-col p-2 gap-10 max-sm:gap-3 font-medium">
-      {NAV_ITEMS.map(({ href, label }) => (
-        <li key={href}>
-          <Link
-            href={href}
-            className={cn("hover:text-yellow-500 transition-colors", {
-              "text-gray-100": isActive(href),
-            })}
-          >
-            {label}
-          </Link>
-        </li>
-      ))}
+      {NAV_ITEMS.map(({ href, label }) => {
+        if (label === "Search") return (
+          <li key={"search-trigger"}>
+            <SearchCommand 
+              renderAs="text"
+              label="Search"
+              initialStocks={initialStocks}
+            />
+          </li>
+        )
+        return (
+          <li key={href}>
+            <Link
+              href={href}
+              className={cn("hover:text-yellow-500 transition-colors", {
+                "text-gray-100": isActive(href),
+              })}
+            >
+              {label}
+            </Link>
+          </li>
+        );
+      })}
     </ul>
   );
 };
