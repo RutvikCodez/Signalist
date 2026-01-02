@@ -1,7 +1,19 @@
 import Header from "@/components/Header";
 import { auth } from "@/lib/better-auth/auth";
+import { Metadata } from "next";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Dashboard | Signalist",
+  description:
+    "Access your personalized stock market dashboard with real-time charts, AI alerts, watchlists, and insights on Signalist.",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
+
 
 const Layout = async ({
   children,

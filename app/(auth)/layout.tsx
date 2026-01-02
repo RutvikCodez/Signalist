@@ -1,8 +1,46 @@
 import { auth } from "@/lib/better-auth/auth";
+import { Metadata } from "next";
 import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Sign In or Create Account | Signalist",
+  description:
+    "Sign in to Signalist to access AI-powered stock alerts, real-time market charts, watchlists, and personalized insights.",
+  keywords: [
+    "stock market login",
+    "AI stock alerts sign in",
+    "stock dashboard login",
+    "Signalist login",
+    "stock tracking app",
+  ],
+  openGraph: {
+    title: "Sign In to Signalist",
+    description:
+      "Access your personalized stock dashboard with AI alerts, charts, and market insights.",
+    url: "https://signalist-nu.vercel.app/sign-in",
+    siteName: "Signalist",
+    images: [
+      {
+        url: "/readme/hero.webp",
+        width: 1200,
+        height: 630,
+        alt: "Signalist Authentication",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sign In | Signalist",
+    description:
+      "Log in to Signalist and track stocks with AI-powered alerts and real-time charts.",
+    images: ["/readme/hero.webp"],
+  },
+};
+
 
 const AuthLayout = async ({
   children,
